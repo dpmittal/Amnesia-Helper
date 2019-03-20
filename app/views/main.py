@@ -7,8 +7,8 @@ from twilio.rest import Client
 from app import *
 
 main = Blueprint('main', __name__)
-account_sid = #account_sid
-auth_token = #auth_token
+#account_sid = account_sid goes here
+#auth_token = auth_token goes here
 client = Client(account_sid, auth_token)
 
 
