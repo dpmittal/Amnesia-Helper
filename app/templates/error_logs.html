@@ -1,0 +1,39 @@
+{% extends 'dashboard.html' %}
+
+{% block main %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title text-center">Error Logs</h4>
+      </div>
+      <div class="card-body">
+        <div class="toolbar">
+        </div>
+        <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>Error Code</th>
+              <th>Error Message</th>
+              <th>Date/Time Sent</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for error in errors %}
+            <tr>
+              <td>{{ error[2] }}</td>
+              <td>{{ error[3] }}</td>
+              <td>{{ error[4] }}</td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- end content-->
+    </div>
+    <!--  end card  -->
+  </div>
+  <!-- end col-md-12 -->
+</div>
+{% endblock %}

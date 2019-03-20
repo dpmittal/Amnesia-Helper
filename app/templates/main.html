@@ -1,0 +1,47 @@
+{% extends 'dashboard.html' %}
+
+{% block main %}
+  <div class="col-md-10">
+    <div class="card ">
+      <div class="card-header ">
+        {% if phone_number %}
+          <h3 class="card-title text-center">Modify Number</h3>
+          <h5 class="card-description text-center"> {{ phone_number[0][1] }} </h5>
+        {% else %}
+          <h3 class="card-title text-center">Add Number</h3>
+        {% endif %}
+      </div>
+      <form method="post" action="{{ url_for('main.index')}}" class="form-horizontal">
+      <div class="card-body ">
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Contact Number</label>
+            <div class="col-sm-10">
+              <div class="form-group">
+                <input type="text" class="form-control" name="phone_number" placeholder="Format: +(Country Code)(Number). Example - +918888888888">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Start Snoozing Time in UTC 00:00</label>
+            <div class="col-sm-10">
+              <div class="form-group">
+                <input type="text" data-date-format="HH:mm:ss" class="form-control timepicker" name="start_time">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">End Snoozing Time in UTC 00:00</label>
+            <div class="col-sm-10">
+              <div class="form-group">
+                <input type="text" data-date-format="HH:mm:ss" class="form-control timepicker" name="end_time">
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="card-footer ">
+        <button type="submit" class="btn btn-info btn-round">Submit</button>
+      </div>
+    </form>
+    </div>
+  </div>
+{% endblock %}
