@@ -1,4 +1,5 @@
 import os
+from pytz import utc
 from flask import Flask, request, render_template, flash, redirect, url_for, session, send_file
 from flask import Blueprint, g
 from flask_mysqldb import MySQL
@@ -13,6 +14,7 @@ main = Blueprint('main', __name__)
 # auth_token = auth_token goes here
 client = Client(account_sid, auth_token)
 scheduler = APScheduler()
+app.config['SCHEDULER_TIMEZONE'] = utc
 scheduler.init_app(app)
 scheduler.start()
 
