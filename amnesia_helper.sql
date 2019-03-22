@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 21, 2019 at 12:33 AM
+-- Generation Time: Mar 22, 2019 at 10:42 AM
 -- Server version: 5.7.25-0ubuntu0.18.04.2
 -- PHP Version: 7.2.15-0ubuntu0.18.04.1
 
@@ -51,7 +51,7 @@ CREATE TABLE `phone_numbers` (
 --
 
 INSERT INTO `phone_numbers` (`id`, `phone_number`, `start_time`, `end_time`) VALUES
-(1, '+918863030999', '22:00:00', '06:00:00');
+(1, '+918863030999', '09:00:00', '10:00:00');
 
 --
 -- Indexes for dumped tables
