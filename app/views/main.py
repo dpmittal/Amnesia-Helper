@@ -4,13 +4,17 @@ from flask import Blueprint, g
 from flask_mysqldb import MySQL
 from flask_session import Session
 from twilio.rest import Client
+from flask_apscheduler import APScheduler
+from datetime import datetime
 from app import *
 
 main = Blueprint('main', __name__)
-#account_sid = account_sid goes here
-#auth_token = auth_token goes here
+# account_sid = account_sid goes here
+# auth_token = auth_token goes here
 client = Client(account_sid, auth_token)
-
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -26,11 +30,22 @@ def index():
                 end_time,
             ))
         else:
-            execute_db("MODIFY phone_numbers SET phone_number=%s, start_time=%s, end_time=%s where id=1;", (
+            execute_db("UPDATE phone_numbers SET phone_number=%s, start_time=%s, end_time=%s where id=1;", (
                 phone_number,
                 start_time,
                 end_time,
             ))
+        query = query_db("SELECT * from phone_numbers;")
+        start = datetime.strptime(str(query[0][2]), '%H:%M:%S').time()
+        end = datetime.strptime(str(query[0][3]), '%H:%M:%S').time()
+        for i in range(24):
+            value = datetime.strptime(str(i)+":00:00", '%H:%M:%S').time()
+            if start>end:
+                if value<start and value>end:
+                    scheduler.add_job(func=send_sms, trigger='cron', args=[phone_number], hour=i, id='j'+str(i))
+            else:
+                if value<start or value>end:
+                    scheduler.add_job(func=send_sms, trigger='cron', args=[phone_number], hour=i, id='j'+str(i))
         flash("Successfully Added/Modified Number", "success")
         return redirect(url_for('main.index'))
     else:
