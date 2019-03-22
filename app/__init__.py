@@ -4,12 +4,14 @@ from tempfile import mkdtemp
 from flask_mysqldb import MySQL
 from flask_session import Session
 
+# Initialization of methods
 app = Flask(__name__, instance_path=os.path.join(os.path.abspath(os.curdir), 'instance'), instance_relative_config=True, static_url_path="", static_folder="static")
 app.config.from_pyfile('config.cfg')
 app.config['SESSION_FILE_DIR'] = mkdtemp()
 mysql=MySQL(app)
 Session(app)
 
+# Database handlers
 def execute_db(query,args=()):
     try:
         cur=mysql.connection.cursor()
